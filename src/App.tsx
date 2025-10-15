@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { initNumbers } from "./utils/initNumbers";
-import styles from "./App.module.css";
+import styles from "./styles/App.module.css";
 import WinnerPage from "./WinnerPage";
 type Numbers = { id: number; num: number | string; hold: boolean }[];
 
-function App() {
+const App: React.FC = () => {
   const [numbers, setNumbers] = useState<Numbers>(initNumbers);
   const [count, setCount] = useState(0);
+
+  console.log(numbers);
   const randomNumber = () => {
     setNumbers((prevCount) =>
       prevCount.map((item) =>
@@ -18,9 +20,16 @@ function App() {
       : setCount((prev) => prev + 1);
   };
   const setHoldTrue = (id: number) => {
-    setNumbers((prevCount) =>
-      prevCount.map((item) => (item.id === id ? { ...item, hold: true } : item))
-    );
+    // Preventing user from holding number if any number is still a string
+    if (numbers.some((number) => typeof number.num === "string")) {
+      return;
+    } else {
+      setNumbers((prevCount) =>
+        prevCount.map((item) =>
+          item.id === id ? { ...item, hold: true } : item
+        )
+      );
+    }
   };
   const handleResetCount = () => {
     setNumbers(initNumbers);
@@ -31,11 +40,9 @@ function App() {
     <>
       {!numbers.every((item) => item.hold) ? (
         <div>
-         
           <div className={styles.container}>
             <h3>Roll Count: {count}</h3>
             <div className={styles.count}>
-         
               {numbers.map((item) => (
                 <h4
                   onClick={() => setHoldTrue(item.id)}
@@ -50,12 +57,15 @@ function App() {
                 </h4>
               ))}
             </div>
-            
           </div>
-          
+
           <div className={styles.controls}>
-            <button className={styles.rollButton} onClick={randomNumber}>Roll</button>
-            <button className={styles.resetbutton} onClick={handleResetCount}>Reset</button>
+            <button className={styles.rollButton} onClick={randomNumber}>
+              Roll
+            </button>
+            <button className={styles.resetbutton} onClick={handleResetCount}>
+              Reset
+            </button>
           </div>
         </div>
       ) : (
@@ -63,6 +73,6 @@ function App() {
       )}
     </>
   );
-}
+};
 
 export default App;

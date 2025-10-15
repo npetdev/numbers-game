@@ -1,8 +1,8 @@
-import styles from "./WinnerPage.module.css";
+import styles from "./styles/WinnerPage.module.css";
 
 type Reset = { handleResetCount: () => void };
 
-const WinnerPage = ({ handleResetCount }: Reset) => {
+const WinnerPage: React.FC<Reset> = ({ handleResetCount }) => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>🎉 Congratulations !!! 🎉</h1>
