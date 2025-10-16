@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { initNumbers } from "./utils/initNumbers";
-import styles from "./styles/App.module.css";
+import RollCount from "./Counter";
+import Buttons from "./Buttons";
+import Items from "./Items";
 import WinnerPage from "./WinnerPage";
 type Numbers = { id: number; num: number | string; hold: boolean }[];
 
 const App: React.FC = () => {
   const [numbers, setNumbers] = useState<Numbers>(initNumbers);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState<number>(0);
 
-  console.log(numbers);
   const randomNumber = () => {
     setNumbers((prevCount) =>
       prevCount.map((item) =>
@@ -39,35 +40,14 @@ const App: React.FC = () => {
   return (
     <>
       {!numbers.every((item) => item.hold) ? (
-        <div>
-          <div className={styles.container}>
-            <h3>Roll Count: {count}</h3>
-            <div className={styles.count}>
-              {numbers.map((item) => (
-                <h4
-                  onClick={() => setHoldTrue(item.id)}
-                  key={item.id}
-                  style={{
-                    backgroundColor: item.hold
-                      ? "#4CAF50"
-                      : "rgb(255, 255, 255)",
-                  }}
-                >
-                  {item.num}
-                </h4>
-              ))}
-            </div>
-          </div>
-
-          <div className={styles.controls}>
-            <button className={styles.rollButton} onClick={randomNumber}>
-              Roll
-            </button>
-            <button className={styles.resetbutton} onClick={handleResetCount}>
-              Reset
-            </button>
-          </div>
-        </div>
+        <>
+          <Items numbers={numbers} setHoldTrue={setHoldTrue} />
+          <RollCount count={count} />
+          <Buttons
+            randomNumber={randomNumber}
+            handleResetCount={handleResetCount}
+          />
+        </>
       ) : (
         <WinnerPage handleResetCount={handleResetCount} />
       )}

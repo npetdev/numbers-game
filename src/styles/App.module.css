@@ -1,95 +1,143 @@
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-/* Full page layout */
+/* 🎯 Main container */
 .container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-family: "Poppins", sans-serif;
+  align-items: center;
+ 
 }
 
-/* 3x3 grid for numbers */
+/* 🎲 Numbers grid — always 3x3 layout */
 .count {
   display: grid;
-  grid-template-columns: repeat(3, 5rem);
-  grid-template-rows: repeat(3, 5rem);
-  gap: 1.2rem;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  justify-items: center;
+  align-items: center;
+  max-width: 400px;
 }
 
-/* Each number tile */
+/* 🎯 Each number item */
 .count h4 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  border-radius: 12px;
-  border: 2px solid #ccc;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-  font-size: 1.8rem;
+  width: 4rem;
+  height: 4rem;
+  background-color: #ffffff;
   color: #333;
-  width: 5rem;
-  height: 5rem;
+  border: 2px solid #1890ff;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease;
 }
 
 .count h4:hover {
-  transform: scale(1.08);
-  border-color: #4caf50;
-}
-
-/* Held (active) state */
-.count h4[style*="#4CAF50"] {
-  background-color: #4caf50 !important;
-  color: white;
-  border-color: #4caf50;
-  box-shadow: 0 5px 12px rgba(76, 175, 80, 0.4);
+  background-color: #e6f7ff;
   transform: scale(1.05);
 }
 
-/* Controls container */
+/* 🎯 Roll count display */
+.rollCount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.counter {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1890ff;
+}
+
+/* 🎮 Buttons container */
 .controls {
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin-top: 3.5rem;
-  gap: 1.5rem;
+  align-items: center;
+  gap: 1rem;
+ 
 }
 
-.controls h4 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #333;
-}
-
-/* Buttons */
-button {
-  background-color: #4caf50;
-  border: none;
-  color: white;
-  padding: 10px 25px;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 0.7rem 0.4rem rgba(0, 0, 0, 0.15);
-}
+/* 🟦 Roll button */
 .rollButton {
-  background-color: #35ff3f;
-}
-.resetbutton {
-  background-color: #9adfff;
-}
-button:hover {
-  transform: translateY(-2px);
+  background-color: #1890ff;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
 }
 
-button:active {
-  transform: scale(0.97);
+.rollButton:hover {
+  background-color: #40a9ff;
+  transform: scale(1.05);
+}
+
+/* 🔁 Reset button */
+.resetButton {
+  background-color: #ff4d4f;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.resetButton:hover {
+  background-color: #ff7875;
+  transform: scale(1.05);
+}
+
+/* 📱 RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .count {
+    gap: 0.75rem;
+    max-width: 320px;
+  }
+
+  .count h4 {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.25rem;
+  }
+
+  .rollButton,
+  .resetButton {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .counter {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .count {
+    gap: 0.5rem;
+    max-width: 260px;
+  }
+
+  .count h4 {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1rem;
+  }
+
+  .rollButton,
+  .resetButton {
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .counter {
+    font-size: 1rem;
+  }
 }
