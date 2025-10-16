@@ -1,4 +1,4 @@
-import styles from "./styles/App.module.css";
+import styles from "../styles/App.module.css";
 type Props = {
   randomNumber: () => void;
   handleResetCount: () => void;

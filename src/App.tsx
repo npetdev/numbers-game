@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { initNumbers } from "./utils/initNumbers";
-import RollCount from "./Counter";
-import Buttons from "./Buttons";
-import Items from "./Items";
+import RollCount from "./components/Counter";
+import Buttons from "./components/Buttons";
+import Items from "./components/Items";
 import WinnerPage from "./WinnerPage";
 type Numbers = { id: number; num: number | string; hold: boolean }[];
 
