@@ -3,14 +3,19 @@ import { initNumbers } from "./utils/initNumbers";
 import RollCount from "./components/Counter";
 import Buttons from "./components/Buttons";
 import Items from "./components/Items";
-import WinnerPage from "./WinnerPage";
+import WinnerPage from "./pages/WinnerPage";
+import StartNumber from "./components/startNumber";
 type Numbers = { id: number; num: number | string; hold: boolean }[];
 
 const App: React.FC = () => {
   const [numbers, setNumbers] = useState<Numbers>(initNumbers);
   const [count, setCount] = useState<number>(0);
+  const [heldNumber, setHeldNumber] = useState(0);
 
   const randomNumber = () => {
+    if (!heldNumber) {
+      return;
+    }
     setNumbers((prevCount) =>
       prevCount.map((item) =>
         !item.hold ? { ...item, num: Math.ceil(Math.random() * 6) } : item
@@ -27,18 +32,25 @@ const App: React.FC = () => {
     } else {
       setNumbers((prevCount) =>
         prevCount.map((item) =>
-          item.id === id ? { ...item, hold: true } : item
+          // hold only choosen number from start
+          item.id === id && heldNumber === item.num
+            ? { ...item, hold: true }
+            : item
         )
       );
     }
   };
   const handleResetCount = () => {
     setNumbers(initNumbers);
+    setHeldNumber(0);
     setCount(0);
   };
-
+  const handleSetNumber = (number: number) => {
+    setHeldNumber(number);
+  };
   return (
     <>
+      <StartNumber heldNumber={heldNumber} handleSetNumber={handleSetNumber} />
       {!numbers.every((item) => item.hold) ? (
         <>
           <Items numbers={numbers} setHoldTrue={setHoldTrue} />
@@ -49,7 +61,7 @@ const App: React.FC = () => {
           />
         </>
       ) : (
-        <WinnerPage handleResetCount={handleResetCount} />
+        <WinnerPage count={count} handleResetCount={handleResetCount} />
       )}
     </>
   );

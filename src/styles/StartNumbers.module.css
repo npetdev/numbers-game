@@ -1,0 +1,25 @@
+.startcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; /* razmak između brojeva */
+  padding: 1rem;
+}
+
+.startcontainer button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.startcontainer button:hover {
+  background: linear-gradient(135deg, #7b88f0, #8c5cc2);
+  transform: scale(1.1);
+}

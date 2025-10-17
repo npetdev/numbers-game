@@ -16,7 +16,9 @@ const Items: React.FC<Props> = ({ numbers, setHoldTrue }) => {
               onClick={() => setHoldTrue(item.id)}
               key={item.id}
               style={{
-                backgroundColor: item.hold ? "#4CAF50" : "rgb(255, 255, 255)",
+                backgroundColor: item.hold
+                  ? "#3f42ffff"
+                  : "rgba(160, 166, 255, 1)",
               }}
             >
               {item.num}

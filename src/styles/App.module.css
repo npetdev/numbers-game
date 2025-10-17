@@ -3,7 +3,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
- 
 }
 
 /* 🎲 Numbers grid — always 3x3 layout */
@@ -20,9 +19,7 @@
 .count h4 {
   width: 4rem;
   height: 4rem;
-  background-color: #ffffff;
-  color: #333;
-  border: 2px solid #1890ff;
+  color: #fff;
   border-radius: 0.5rem;
   font-size: 1.5rem;
   font-weight: 600;
@@ -58,12 +55,11 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
- 
 }
 
 /* 🟦 Roll button */
 .rollButton {
-  background-color: #1890ff;
+  background-color: #01d874;
   color: #fff;
   border: none;
   border-radius: 0.5rem;
