@@ -1,5 +1,5 @@
 import { chooseNumber } from "../utils/initNumbers";
-import styles from "../styles/StartNumbers.module.css";
+import styles from "../styles/App.module.css";
 type props = {
   heldNumber: number;
   handleSetNumber: (heldNumber: number) => void;

@@ -1,27 +1,83 @@
-/* 🎯 Main container */
-.container {
+/* 🎯 Main container — centriranje svega */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  box-sizing: border-box;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: #fff;
+  font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+/* 📦 Glavni wrapper za sve komponente */
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+  padding: 1rem;
+}
+
+/* Ostalo ostaje isto */
+.startcontainer {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
-/* 🎲 Numbers grid — always 3x3 layout */
+.startcontainer button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.startcontainer button:hover {
+  background: linear-gradient(135deg, #7b88f0, #8c5cc2);
+  transform: scale(1.1);
+}
+
+/* 🎲 3x3 mreža brojeva */
 .count {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: clamp(0.5rem, 2vw, 1rem);
   justify-items: center;
   align-items: center;
-  max-width: 400px;
+  max-width: 420px;
+  margin: 1rem auto;
 }
 
-/* 🎯 Each number item */
-.count h4 {
-  width: 4rem;
-  height: 4rem;
+.count button {
+  width: clamp(3rem, 8vw, 4rem);
+  height: clamp(3rem, 8vw, 4rem);
   color: #fff;
+  border: none;
+  background-color: #1890ff;
   border-radius: 0.5rem;
-  font-size: 1.5rem;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
   font-weight: 600;
   display: flex;
   justify-content: center;
@@ -30,43 +86,41 @@
   transition: all 0.25s ease;
 }
 
-.count h4:hover {
-  background-color: #e6f7ff;
-  transform: scale(1.05);
+.count button:hover {
+  color: #def0ff;
+  transform: scale(1.08);
 }
 
-/* 🎯 Roll count display */
-.rollCount {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1.5rem 0;
+.count button.active {
+  background-color: #52c41a;
+  transform: scale(1.15);
+  box-shadow: 0 0 10px rgba(82, 196, 26, 0.6);
 }
 
-.counter {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1890ff;
-}
-
-/* 🎮 Buttons container */
+/* 🎮 Kontrole i brojanja */
+.rollCount,
 .controls {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
 }
 
-/* 🟦 Roll button */
-.rollButton {
-  background-color: #01d874;
-  color: #fff;
+.rollButton,
+.resetButton {
   border: none;
   border-radius: 0.5rem;
   padding: 0.75rem 1.5rem;
-  font-size: 1.125rem;
+  font-size: clamp(1rem, 3vw, 1.125rem);
   cursor: pointer;
+  color: #fff;
   transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.rollButton {
+  background-color: #01d874;
 }
 
 .rollButton:hover {
@@ -74,16 +128,8 @@
   transform: scale(1.05);
 }
 
-/* 🔁 Reset button */
 .resetButton {
   background-color: #ff4d4f;
-  color: #fff;
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  font-size: 1.125rem;
-  cursor: pointer;
-  transition: background-color 0.25s ease, transform 0.2s ease;
 }
 
 .resetButton:hover {
@@ -91,49 +137,26 @@
   transform: scale(1.05);
 }
 
-/* 📱 RESPONSIVE DESIGN */
-@media (max-width: 768px) {
-  .count {
-    gap: 0.75rem;
-    max-width: 320px;
-  }
-
-  .count h4 {
-    width: 3.5rem;
-    height: 3.5rem;
-    font-size: 1.25rem;
-  }
-
-  .rollButton,
-  .resetButton {
-    font-size: 1rem;
-    padding: 0.6rem 1.2rem;
-  }
-
-  .counter {
-    font-size: 1.1rem;
-  }
-}
-
+/* 📱 Responsivnost */
 @media (max-width: 480px) {
   .count {
+    max-width: 240px;
     gap: 0.5rem;
-    max-width: 260px;
   }
 
-  .count h4 {
-    width: 3rem;
-    height: 3rem;
+  .count button {
+    width: 2.5rem;
+    height: 2.5rem;
     font-size: 1rem;
+  }
+
+  .controls {
+    flex-direction: column;
   }
 
   .rollButton,
   .resetButton {
-    font-size: 0.95rem;
-    padding: 0.5rem 1rem;
-  }
-
-  .counter {
-    font-size: 1rem;
+    width: 100%;
+    max-width: 180px;
   }
 }

@@ -5,6 +5,7 @@ import Buttons from "./components/Buttons";
 import Items from "./components/Items";
 import WinnerPage from "./pages/WinnerPage";
 import StartNumber from "./components/startNumber";
+import styles from "./styles/App.module.css";
 type Numbers = { id: number; num: number | string; hold: boolean }[];
 
 const App: React.FC = () => {
@@ -49,10 +50,11 @@ const App: React.FC = () => {
     setHeldNumber(number);
   };
   return (
-    <>
-      <StartNumber heldNumber={heldNumber} handleSetNumber={handleSetNumber} />
+    <div className={styles.appContainer}>
+     
       {!numbers.every((item) => item.hold) ? (
         <>
+         <StartNumber heldNumber={heldNumber} handleSetNumber={handleSetNumber} />
           <Items numbers={numbers} setHoldTrue={setHoldTrue} />
           <RollCount count={count} />
           <Buttons
@@ -63,7 +65,7 @@ const App: React.FC = () => {
       ) : (
         <WinnerPage count={count} handleResetCount={handleResetCount} />
       )}
-    </>
+    </div>
   );
 };
 

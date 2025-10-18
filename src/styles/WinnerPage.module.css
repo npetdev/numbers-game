@@ -1,39 +1,48 @@
-html,
-body {
+/* 🧱 Base reset */
+html, body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  height: 100%;
+  overflow: hidden; /* 🚫 absolutely no scroll */
 }
 
+/* 🌈 Full-screen responsive container */
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100vh; /* full screen height */
+  width: 100vw; /* full screen width */
+  box-sizing: border-box;
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: #fff;
   text-align: center;
   padding: 1rem;
 }
 
+/* 🏷️ Title */
 .title {
-  font-size: 3rem;
+  font-size: clamp(1.8rem, 5vw, 3rem);
   margin-bottom: 1rem;
   animation: pop 0.8s ease-in-out;
 }
 
+/* 🧾 Text */
 .text {
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 3vw, 1.5rem);
   margin-bottom: 2rem;
+  max-width: 90%;
+  line-height: 1.4;
 }
 
+/* 🎯 Button */
 .button {
   background: #ffcc00;
   color: #333;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   font-weight: bold;
-  padding: 0.8rem 1.6rem;
+  padding: clamp(0.6rem, 2vw, 0.8rem) clamp(1.2rem, 3vw, 1.6rem);
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -45,6 +54,7 @@ body {
   transform: scale(1.05);
 }
 
+/* 🎬 Pop animation */
 @keyframes pop {
   0% {
     transform: scale(0.7);
@@ -53,35 +63,5 @@ body {
   100% {
     transform: scale(1);
     opacity: 1;
-  }
-}
-
-/* 📱 Responsive styling */
-
-/* Za tablete (do 768px širine) */
-@media (max-width: 768px) {
-  .title {
-    font-size: 2.2rem;
-  }
-  .text {
-    font-size: 1.2rem;
-  }
-  .button {
-    font-size: 1rem;
-    padding: 0.7rem 1.4rem;
-  }
-}
-
-/* Za male telefone (do 480px širine) */
-@media (max-width: 480px) {
-  .title {
-    font-size: 1.8rem;
-  }
-  .text {
-    font-size: 1rem;
-  }
-  .button {
-    font-size: 0.9rem;
-    padding: 0.6rem 1.2rem;
   }
 }

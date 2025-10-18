@@ -12,7 +12,7 @@ const Items: React.FC<Props> = ({ numbers, setHoldTrue }) => {
       <div className={styles.container}>
         <div className={styles.count}>
           {numbers.map((item) => (
-            <h4
+            <button
               onClick={() => setHoldTrue(item.id)}
               key={item.id}
               style={{
@@ -22,7 +22,7 @@ const Items: React.FC<Props> = ({ numbers, setHoldTrue }) => {
               }}
             >
               {item.num}
-            </h4>
+            </button>
           ))}
         </div>
       </div>
