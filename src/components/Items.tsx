@@ -1,6 +1,5 @@
 import styles from "../styles/App.module.scss";
 import type { ItemsProps } from "../types/appTypes";
-
 const Items: React.FC<ItemsProps> = ({ numbers, setHoldTrue }) => {
   return (
     <div className={styles.appContainer}>
@@ -18,5 +17,4 @@ const Items: React.FC<ItemsProps> = ({ numbers, setHoldTrue }) => {
     </div>
   );
 };
-
 export default Items;

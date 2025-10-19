@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../styles/App.module.scss";
-import type { InstructionsPage } from "../types/appTypes";
-const InstructionsPage: React.FC<InstructionsPage> = ({ handleStartGame }) => {
+import type { InstructionsPageProps } from "../types/appTypes";
+const InstructionsPage: React.FC<InstructionsPageProps> = ({ handleStartGame }) => {
   return (
     <div className={styles.mainWrapper}>
       <h1>🎲 Welcome to the Game!</h1>

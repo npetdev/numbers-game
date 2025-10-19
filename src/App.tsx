@@ -7,11 +7,11 @@ import ActionButtons from "./components/ActionButtons";
 import WinnerPage from "./pages/WinnerPage";
 import { initNumbers } from "./utils/initNumbers";
 import styles from "./styles/App.module.scss";
-import type { Numbers } from "./types/appTypes";
+import type { NumbersProps } from "./types/appTypes";
 
 const App: React.FC = () => {
   const [showInstructions, setShowInstructions] = useState(true);
-  const [numbers, setNumbers] = useState<Numbers>(initNumbers);
+  const [numbers, setNumbers] = useState<NumbersProps>(initNumbers);
   const [count, setCount] = useState<number>(0);
   const [heldNumber, setHeldNumber] = useState(0);
 const handleStartGame = () => {

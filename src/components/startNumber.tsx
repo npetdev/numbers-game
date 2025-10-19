@@ -1,10 +1,7 @@
 import { chooseNumber } from "../utils/initNumbers";
 import styles from "../styles/App.module.scss";
-type props = {
-  heldNumber: number;
-  handleSetNumber: (heldNumber: number) => void;
-};
-const StartNumber: React.FC<props> = ({ heldNumber, handleSetNumber }) => {
+import type { initNumber } from "../types/appTypes";
+const StartNumber: React.FC<initNumber> = ({ heldNumber, handleSetNumber }) => {
   return heldNumber ? (
     <div className={styles.startcontainer}>
       <button> {heldNumber}</button>
