@@ -1,9 +1,6 @@
-import styles from "../styles/App.module.css";
-type Props = {
-  randomNumber: () => void;
-  handleResetCount: () => void;
-};
-const Buttons: React.FC<Props> = ({ randomNumber, handleResetCount }) => {
+import styles from "../styles/App.module.scss";
+import type { Buttons } from "../types/appTypes";
+const ActionButtons: React.FC<Buttons> = ({ handleRollNumber: randomNumber, handleResetCount }) => {
   return (
     <div className={styles.controls}>
       <button className={styles.rollButton} onClick={randomNumber}>
@@ -15,5 +12,4 @@ const Buttons: React.FC<Props> = ({ randomNumber, handleResetCount }) => {
     </div>
   );
 };
-
-export default Buttons;
+export default ActionButtons;

@@ -1,32 +1,21 @@
-import styles from "../styles/App.module.css";
+import styles from "../styles/App.module.scss";
+import type { ItemsProps } from "../types/appTypes";
 
-type Numbers = { id: number; num: number | string; hold: boolean }[];
-type Props = {
-  numbers: Numbers;
-  setHoldTrue: (id: number) => void;
-};
-// Assuming numbers and setHoldTrue are passed as props or managed via context
-const Items: React.FC<Props> = ({ numbers, setHoldTrue }) => {
+const Items: React.FC<ItemsProps> = ({ numbers, setHoldTrue }) => {
   return (
-    <>
-      <div className={styles.container}>
-        <div className={styles.count}>
-          {numbers.map((item) => (
-            <button
-              onClick={() => setHoldTrue(item.id)}
-              key={item.id}
-              style={{
-                backgroundColor: item.hold
-                  ? "#3f42ffff"
-                  : "rgba(160, 166, 255, 1)",
-              }}
-            >
-              {item.num}
-            </button>
-          ))}
-        </div>
+    <div className={styles.appContainer}>
+      <div className={styles.count}>
+        {numbers.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => setHoldTrue(item.id)}
+            className={item.hold ? styles.activeButton : ""}
+          >
+            {item.num}
+          </button>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 

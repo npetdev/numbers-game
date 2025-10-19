@@ -1,24 +1,26 @@
 import { useState } from "react";
-import { initNumbers } from "./utils/initNumbers";
-import RollCount from "./components/Counter";
-import Buttons from "./components/Buttons";
-import Items from "./components/Items";
-import WinnerPage from "./pages/WinnerPage";
+import InstructionsPage from "./pages/InstructionsPage";
 import StartNumber from "./components/startNumber";
-import styles from "./styles/App.module.css";
-type Numbers = { id: number; num: number | string; hold: boolean }[];
+import RollCount from "./components/Counter";
+import Items from "./components/Items";
+import ActionButtons from "./components/ActionButtons";
+import WinnerPage from "./pages/WinnerPage";
+import { initNumbers } from "./utils/initNumbers";
+import styles from "./styles/App.module.scss";
+import type { Numbers } from "./types/appTypes";
 
 const App: React.FC = () => {
+  const [showInstructions, setShowInstructions] = useState(true);
   const [numbers, setNumbers] = useState<Numbers>(initNumbers);
   const [count, setCount] = useState<number>(0);
   const [heldNumber, setHeldNumber] = useState(0);
-
-  const randomNumber = () => {
-    if (!heldNumber) {
-      return;
-    }
-    setNumbers((prevCount) =>
-      prevCount.map((item) =>
+const handleStartGame = () => {
+    setShowInstructions(false);
+  };
+const rollNumber = () => {
+    if (!heldNumber) return;
+    setNumbers((prev) =>
+      prev.map((item) =>
         !item.hold ? { ...item, num: Math.ceil(Math.random() * 6) } : item
       )
     );
@@ -26,39 +28,39 @@ const App: React.FC = () => {
       ? setCount((prev) => prev)
       : setCount((prev) => prev + 1);
   };
-  const setHoldTrue = (id: number) => {
-    // Preventing user from holding number if any number is still a string
-    if (numbers.some((number) => typeof number.num === "string")) {
-      return;
-    } else {
-      setNumbers((prevCount) =>
-        prevCount.map((item) =>
-          // hold only choosen number from start
-          item.id === id && heldNumber === item.num
-            ? { ...item, hold: true }
-            : item
-        )
-      );
-    }
+const setHoldTrue = (id: number) => {
+    if (numbers.some((number) => typeof number.num === "string")) return;
+    setNumbers((prev) =>
+      prev.map((item) =>
+        item.id === id && heldNumber === item.num
+          ? { ...item, hold: true }
+          : item
+      )
+    );
   };
-  const handleResetCount = () => {
+ const handleResetCount = () => {
     setNumbers(initNumbers);
     setHeldNumber(0);
     setCount(0);
+    setShowInstructions(true);
   };
-  const handleSetNumber = (number: number) => {
+const handleSetNumber = (number: number) => {
     setHeldNumber(number);
   };
-  return (
-    <div className={styles.appContainer}>
-     
-      {!numbers.every((item) => item.hold) ? (
+return (
+    <div className={styles.mainWrapper}>
+      {showInstructions ? (
+        <InstructionsPage handleStartGame={handleStartGame} />
+      ) : !numbers.every((item) => item.hold) ? (
         <>
-         <StartNumber heldNumber={heldNumber} handleSetNumber={handleSetNumber} />
-          <Items numbers={numbers} setHoldTrue={setHoldTrue} />
+          <StartNumber
+            heldNumber={heldNumber}
+            handleSetNumber={handleSetNumber}
+          />
           <RollCount count={count} />
-          <Buttons
-            randomNumber={randomNumber}
+          <Items numbers={numbers} setHoldTrue={setHoldTrue} />
+          <ActionButtons
+            handleRollNumber={rollNumber}
             handleResetCount={handleResetCount}
           />
         </>
@@ -68,5 +70,4 @@ const App: React.FC = () => {
     </div>
   );
 };
-
 export default App;
