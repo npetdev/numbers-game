@@ -11,13 +11,19 @@ import type { NumbersProps } from "./types/appTypes";
 
 const App: React.FC = () => {
   const [showInstructions, setShowInstructions] = useState(true);
+  const [playerName, setPlayerName] = useState<string>("");
   const [numbers, setNumbers] = useState<NumbersProps>(initNumbers);
   const [count, setCount] = useState<number>(0);
   const [heldNumber, setHeldNumber] = useState(0);
-const handleStartGame = () => {
+  const handleStartGame = () => {
+    if (!playerName) {
+      alert("Please enter your name to start the game.");
+      return;
+    }
     setShowInstructions(false);
+    console.log(playerName);
   };
-const rollNumber = () => {
+  const rollNumber = () => {
     if (!heldNumber) return;
     setNumbers((prev) =>
       prev.map((item) =>
@@ -28,7 +34,7 @@ const rollNumber = () => {
       ? setCount((prev) => prev)
       : setCount((prev) => prev + 1);
   };
-const setHoldTrue = (id: number) => {
+  const setHoldTrue = (id: number) => {
     if (numbers.some((number) => typeof number.num === "string")) return;
     setNumbers((prev) =>
       prev.map((item) =>
@@ -38,21 +44,27 @@ const setHoldTrue = (id: number) => {
       )
     );
   };
- const handleResetCount = () => {
+  const handleResetCount = () => {
     setNumbers(initNumbers);
+    setPlayerName("");
     setHeldNumber(0);
     setCount(0);
     setShowInstructions(true);
   };
-const handleSetNumber = (number: number) => {
+  const handleSetNumber = (number: number) => {
     setHeldNumber(number);
   };
-return (
+  return (
     <div className={styles.mainWrapper}>
       {showInstructions ? (
-        <InstructionsPage handleStartGame={handleStartGame} />
+        <InstructionsPage
+          handleStartGame={handleStartGame}
+          playerName={playerName}
+          setPlayerName={setPlayerName}
+        />
       ) : !numbers.every((item) => item.hold) ? (
         <>
+          <h2>Hello, {playerName}!</h2>
           <StartNumber
             heldNumber={heldNumber}
             handleSetNumber={handleSetNumber}
@@ -65,7 +77,7 @@ return (
           />
         </>
       ) : (
-        <WinnerPage count={count} handleResetCount={handleResetCount} />
+        <WinnerPage count={count} handleResetCount={handleResetCount} playerName={playerName} />
       )}
     </div>
   );

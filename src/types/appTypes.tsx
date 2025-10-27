@@ -19,9 +19,12 @@ export type ItemsProps = {
   setHoldTrue: (id: number) => void;
 };
 export type WinnerPageProps = {
+  playerName: string;
   count: number;
   handleResetCount: () => void;
 };
 export type InstructionsPageProps = {
   handleStartGame: () => void;
+  playerName: string;
+  setPlayerName: React.Dispatch<React.SetStateAction<string>>;
 };

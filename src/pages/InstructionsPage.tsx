@@ -1,7 +1,12 @@
 import React from "react";
 import styles from "../styles/App.module.scss";
 import type { InstructionsPageProps } from "../types/appTypes";
-const InstructionsPage: React.FC<InstructionsPageProps> = ({ handleStartGame }) => {
+import PlayerInput from "./playerName";
+const InstructionsPage: React.FC<InstructionsPageProps> = ({
+  handleStartGame,
+  playerName,
+  setPlayerName,
+}) => {
   return (
     <div className={styles.mainWrapper}>
       <h1>🎲 Welcome to the Game!</h1>
@@ -32,10 +37,11 @@ const InstructionsPage: React.FC<InstructionsPageProps> = ({ handleStartGame }) 
           </li>
         </ol>
       </div>
+      <PlayerInput playerName={playerName} setPlayerName={setPlayerName} />
       <div className={styles.controls}>
-      <button className={styles.rollButton} onClick={handleStartGame}>
-        Start Game
-      </button>
+        <button className={styles.rollButton} onClick={handleStartGame}>
+          Start Game
+        </button>
       </div>
     </div>
   );
