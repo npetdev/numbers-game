@@ -1,85 +1,104 @@
 import { useState } from "react";
+import { Button, Modal, Space } from "antd";
+import { useAuth } from "./hooks/useAuth";
+import { useGame } from "./hooks/useGame";
+import { updatePlayerScore } from "./services/players";
+import SignUpPage from "./pages/SignUpPage";
+import LogInPage from "./pages/LogInPage";
 import InstructionsPage from "./pages/InstructionsPage";
-import StartNumber from "./components/startNumber";
+import ChoosenNumber from "./components/ChoosenNumber";
 import RollCount from "./components/Counter";
 import Items from "./components/Items";
-import ActionButtons from "./components/ActionButtons";
+import ActionButtons from "./buttons/ActionButtons";
 import WinnerPage from "./pages/WinnerPage";
-import { initNumbers } from "./utils/initNumbers";
+import StartGameButton from "./buttons/StartGameButton";
 import styles from "./styles/App.module.scss";
-import type { NumbersProps } from "./types/appTypes";
 
 const App: React.FC = () => {
+  const { user, logout, playerName } = useAuth();
+  const {
+    numbers,
+    score,
+    heldNumber,
+    rollNumber,
+    setHoldTrue,
+    resetGame,
+    setNumber,
+  } = useGame();
+
   const [showInstructions, setShowInstructions] = useState(true);
-  const [playerName, setPlayerName] = useState<string>("");
-  const [numbers, setNumbers] = useState<NumbersProps>(initNumbers);
-  const [count, setCount] = useState<number>(0);
-  const [heldNumber, setHeldNumber] = useState(0);
-  const handleStartGame = () => {
-    if (!playerName) {
-      alert("Please enter your name to start the game.");
-      return;
-    }
-    setShowInstructions(false);
-    console.log(playerName);
-  };
-  const rollNumber = () => {
-    if (!heldNumber) return;
-    setNumbers((prev) =>
-      prev.map((item) =>
-        !item.hold ? { ...item, num: Math.ceil(Math.random() * 6) } : item
-      )
-    );
-    numbers.every((item) => item.hold)
-      ? setCount((prev) => prev)
-      : setCount((prev) => prev + 1);
-  };
-  const setHoldTrue = (id: number) => {
-    if (numbers.some((number) => typeof number.num === "string")) return;
-    setNumbers((prev) =>
-      prev.map((item) =>
-        item.id === id && heldNumber === item.num
-          ? { ...item, hold: true }
-          : item
-      )
-    );
-  };
-  const handleResetCount = () => {
-    setNumbers(initNumbers);
-    setPlayerName("");
-    setHeldNumber(0);
-    setCount(0);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+
+  const handleStartGame = () => setShowInstructions(false);
+
+  const handleEndGame = async () => {
+    if (user) await updatePlayerScore(user.id, score);
+    resetGame();
     setShowInstructions(true);
   };
-  const handleSetNumber = (number: number) => {
-    setHeldNumber(number);
-  };
+
   return (
     <div className={styles.mainWrapper}>
+      <div style={{ position: "absolute", top: 20, right: 20 }}>
+        {user ? (
+          <Button danger onClick={logout}>
+            Logout
+          </Button>
+        ) : (
+          <Space>
+            <Button onClick={() => setIsLoginModalOpen(true)}>Login</Button>
+            <Button type="primary" onClick={() => setIsSignUpModalOpen(true)}>
+              Sign Up
+            </Button>
+          </Space>
+        )}
+      </div>
+      <Modal
+        open={isLoginModalOpen}
+        onCancel={() => setIsLoginModalOpen(false)}
+        footer={null}
+        centered
+        destroyOnHidden
+      >
+        <LogInPage />
+      </Modal>
+      <Modal
+        open={isSignUpModalOpen}
+        onCancel={() => setIsSignUpModalOpen(false)}
+        footer={null}
+        centered
+        destroyOnHidden
+      >
+        <SignUpPage />
+      </Modal>
+
       {showInstructions ? (
-        <InstructionsPage
-          handleStartGame={handleStartGame}
-          playerName={playerName}
-          setPlayerName={setPlayerName}
-        />
+        <>
+          <InstructionsPage user={user} />
+          <StartGameButton handleStartGame={handleStartGame} />
+        </>
       ) : !numbers.every((item) => item.hold) ? (
         <>
-          <h2>Hello, {playerName}!</h2>
-          <StartNumber
-            heldNumber={heldNumber}
-            handleSetNumber={handleSetNumber}
-          />
-          <RollCount count={count} />
+          <h2>Hello {playerName}!</h2>
+          <ChoosenNumber heldNumber={heldNumber} handleSetNumber={setNumber} />
+          <RollCount score={score} />
           <Items numbers={numbers} setHoldTrue={setHoldTrue} />
           <ActionButtons
             handleRollNumber={rollNumber}
-            handleResetCount={handleResetCount}
+            handleResetCount={resetGame}
           />
         </>
       ) : (
-        <WinnerPage count={count} handleResetCount={handleResetCount} playerName={playerName} />
+        <WinnerPage
+          score={score}
+          handleResetCount={handleEndGame}
+          player_name={playerName}
+          onEndGame={handleEndGame}
+        />
       )}
     </div>
   );
 };
+
 export default App;

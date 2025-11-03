@@ -1,3 +1,4 @@
+import type { User } from "@supabase/supabase-js";
 export type NumbersProps = {
   id: number;
   num: number | string;
@@ -8,7 +9,7 @@ export type initNumber = {
   handleSetNumber: (heldNumber: number) => void;
 };
 export type CountProps = {
-  count: number;
+  score: number;
 };
 export type ButtonsProps = {
   handleRollNumber: () => void;
@@ -19,12 +20,11 @@ export type ItemsProps = {
   setHoldTrue: (id: number) => void;
 };
 export type WinnerPageProps = {
-  playerName: string;
-  count: number;
+  player_name: string;
+  score: number;
   handleResetCount: () => void;
+  onEndGame: () => void;
 };
 export type InstructionsPageProps = {
-  handleStartGame: () => void;
-  playerName: string;
-  setPlayerName: React.Dispatch<React.SetStateAction<string>>;
+  user: User | null;
 };
