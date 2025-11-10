@@ -9,51 +9,93 @@
   max-width: 260px;
   margin: 20px auto;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.25s ease;
+  text-align: center;
+
+  h2,
+  h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: 600;
+  }
+
+  .input {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 6px 0;
+    font-size: 0.85rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+
+    &:focus {
+      border-color: #4caf50;
+      box-shadow: 0 0 4px rgba(76, 175, 80, 0.4);
+      outline: none;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 12px;
+    gap: 6px;
+  }
+
+  .button {
+    flex: 1;
+    padding: 6px 0;
+    font-size: 0.85rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #4caf50;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.25s ease, transform 0.15s ease;
+
+    &:hover,
+    &:focus {
+      background-color: #43a047;
+      transform: scale(1.04);
+      outline: none;
+    }
+
+    &.danger {
+      background-color: #f44336;
+
+      &:hover,
+      &:focus {
+        background-color: #e53935;
+      }
+    }
+
+    &.secondary {
+      background-color: #2196f3;
+
+      &:hover,
+      &:focus {
+        background-color: #1e88e5;
+      }
+    }
+  }
 }
 
-h2,
-h3 {
-  font-size: 16px;
-  margin-bottom: 10px;
-  color: #333;
-}
+@media (max-width: 480px) {
+  .container {
+    max-width: 90%;
+    padding: 16px;
 
-.input {
-  width: 100%;
-  padding: 6px 10px;
-  margin: 6px 0;
-  font-size: 13px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  transition: border-color 0.2s;
-}
+    h2,
+    h3 {
+      font-size: 0.9rem;
+    }
 
-.input:focus {
-  border-color: #4caf50;
-  outline: none;
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 12px;
-  gap: 6px;
-}
-
-.button {
-  padding: 6px 0;
-  font-size: 13px;
-  border-radius: 5px;
-  border: none;
-  background-color: #4caf50;
-  color: white;
-  cursor: pointer;
-  flex: 1;
-  transition: background-color 0.2s, transform 0.1s;
-}
-
-.button:hover {
-  background-color: #43a047;
-  transform: scale(1.02);
+    .button {
+      font-size: 0.8rem;
+      padding: 5px 0;
+    }
+  }
 }

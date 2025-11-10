@@ -3,18 +3,23 @@ $font-primary: "Segoe UI", Roboto, sans-serif;
 $color-text: #fff;
 $color-bg-dark: #0f172a;
 $color-bg-light: #1e293b;
+
 $color-blue-start: #60a5fa;
 $color-blue-end: #3b82f6;
 $color-blue-hover-start: #93c5fd;
 $color-blue-hover-end: #60a5fa;
+
 $color-green-start: #16a34a;
 $color-green-end: #22c55e;
 $color-green-button: #4ade80;
 $color-green-button-hover: #22c55e;
+
 $color-red-button: #f87171;
 $color-red-button-hover: #ef4444;
+
 $color-yellow-start: #fbbf24;
 $color-yellow-end: #f59e0b;
+
 $color-winner-text: #facc15;
 
 $border-radius: 12px;
@@ -28,12 +33,7 @@ $transition: all 0.25s ease;
   gap: $gap;
 }
 
-@mixin button-style(
-  $bg,
-  $hover-bg,
-  $padding: 0.75rem 1.5rem,
-  $scale-hover: 1.05
-) {
+@mixin button-style($bg, $hover-bg, $padding: 0.75rem 1.5rem, $scale-hover: 1.05) {
   border: none;
   border-radius: $border-radius;
   padding: $padding;
@@ -43,9 +43,11 @@ $transition: all 0.25s ease;
   transition: $transition;
   background: $bg;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: $hover-bg;
     transform: scale($scale-hover);
+    outline: none;
   }
 }
 
@@ -54,15 +56,18 @@ $transition: all 0.25s ease;
 }
 
 .mainWrapper {
-  @include flex-center(column);
-  width: 100vw;
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
   background: linear-gradient(145deg, $color-bg-dark, $color-bg-light);
   color: $color-text;
   padding: 1rem 2rem;
   box-sizing: border-box;
   text-align: center;
   font-family: $font-primary;
+  overflow-x: hidden;
 
   h1 {
     @include responsive-font(1.5rem, 5vw, 2rem);
@@ -89,14 +94,14 @@ $transition: all 0.25s ease;
     padding: 0.6rem 1.4rem;
     cursor: pointer;
     color: $color-text;
+    border: none;
+    transition: $transition;
 
-    &:hover {
+    &:hover,
+    &:focus {
       transform: scale(1.1);
-      background: linear-gradient(
-        135deg,
-        $color-blue-hover-start,
-        $color-blue-hover-end
-      );
+      background: linear-gradient(135deg, $color-blue-hover-start, $color-blue-hover-end);
+      outline: none;
     }
   }
 }
@@ -122,9 +127,11 @@ $transition: all 0.25s ease;
     @include flex-center();
     transition: $transition;
 
-    &:hover {
+    &:hover,
+    &:focus {
       transform: scale(1.08);
       filter: brightness(1.1);
+      outline: none;
     }
 
     &.activeButton {
@@ -171,10 +178,41 @@ $transition: all 0.25s ease;
   }
 }
 
+.footer {
+  @include flex-center(column);
+  background: linear-gradient(145deg, $color-bg-light, $color-bg-dark);
+  color: $color-text;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-family: $font-primary;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  transition: $transition;
+
+  p {
+    margin: 0.25rem 0;
+    opacity: 0.9;
+  }
+
+  a {
+    color: $color-blue-start;
+    text-decoration: none;
+    font-weight: 600;
+    transition: $transition;
+
+    &:hover,
+    &:focus {
+      color: $color-blue-hover-start;
+      text-decoration: underline;
+      outline: none;
+    }
+  }
+}
+
 $breakpoints: (
   md: 768px,
   sm: 480px,
-  xs: 375px,
+  xs: 375px
 );
 
 @each $label, $size in $breakpoints {

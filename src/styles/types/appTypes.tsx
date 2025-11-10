@@ -19,7 +19,9 @@ export type ItemsProps = {
   setHoldTrue: (id: number) => void;
 };
 export type WinnerPageProps = {
- score:number
-  resetGame: () => void
+  player_name: string;
+  score: number;
+  handleResetCount: () => void;
+  onEndGame: () => void;
 };
 

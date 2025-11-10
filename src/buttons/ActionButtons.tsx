@@ -1,6 +1,9 @@
 import styles from "../styles/App.module.scss";
 import type { ButtonsProps } from "../types/appTypes";
-const ActionButtons: React.FC<ButtonsProps> = ({ handleRollNumber, handleResetCount }) => {
+const ActionButtons: React.FC<ButtonsProps> = ({
+  handleRollNumber,
+  handleResetCount,
+}) => {
   return (
     <div className={styles.controls}>
       <button className={styles.rollButton} onClick={handleRollNumber}>

@@ -1,0 +1,44 @@
+.rootGamePage {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  padding: 2rem;
+  background-color: #f0f2f5;
+}
+
+.rootGamePage .intro {
+  text-align: center;
+  max-width: 400px; 
+  width: 100%;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.rootGamePage .intro h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.rootGamePage .intro p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: #555;
+}
+
+.rootGamePage .introImage {
+  width: 150px; 
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 0 auto 1.5rem auto;
+  display: block;
+}
+
+.rootGamePage .startButtonWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}

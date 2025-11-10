@@ -1,11 +1,15 @@
+import React from "react";
 import { useAuth } from "../hooks/useAuth";
-const LogOut:React.FC = () => {
+
+const LogOutPage: React.FC = () => {
   const { logout } = useAuth();
   return (
-    <button style={{ marginBottom: "20px" }} onClick={logout}>
-     LogOut
-    </button>
+    <div
+      style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
+    >
+      <button onClick={logout}>LogOut</button>
+    </div>
   );
 };
 
-export default LogOut;
+export default LogOutPage;

@@ -4,9 +4,11 @@ $color-button: #ffcc00;
 $color-button-hover: #ffdb4d;
 $color-button-text: #333;
 $border-radius: 12px;
+
 @mixin responsive-font($min, $vw, $max) {
   font-size: clamp($min, $vw, $max);
 }
+
 @mixin button-style($bg, $hover-bg, $padding-y, $padding-x) {
   background: $bg;
   color: $color-button-text;
@@ -16,18 +18,13 @@ $border-radius: 12px;
   border-radius: $border-radius;
   cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease;
+
   &:hover {
     background: $hover-bg;
     transform: scale(1.05);
   }
 }
-html,
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
-}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -39,19 +36,19 @@ body {
   background: linear-gradient(135deg, $color-bg-start, $color-bg-end);
   color: #fff;
   text-align: center;
-  padding: 1rem;
 }
+
 .title {
   @include responsive-font(1.8rem, 5vw, 3rem);
-  margin-bottom: 1rem;
   animation: pop 0.8s ease-in-out;
 }
+
 .text {
   @include responsive-font(1rem, 3vw, 1.5rem);
-  margin-bottom: 2rem;
   max-width: 90%;
   line-height: 1.4;
 }
+
 .button {
   @include button-style(
     $color-button,
@@ -60,6 +57,7 @@ body {
     clamp(1.2rem, 3vw, 1.6rem)
   );
 }
+
 @keyframes pop {
   0% {
     transform: scale(0.7);

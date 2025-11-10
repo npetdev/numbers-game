@@ -1,13 +1,13 @@
-// hooks/useGame.ts
 import { useState } from "react";
 import { initNumbers } from "../utils/initNumbers";
 import type { NumbersProps } from "../types/appTypes";
-
+import { updatePlayerScore } from "../services/players";
+import { useAuth } from "./useAuth";
 export const useGame = () => {
   const [numbers, setNumbers] = useState<NumbersProps>(initNumbers);
   const [score, setScore] = useState(0);
   const [heldNumber, setHeldNumber] = useState(0);
-
+  const { user } = useAuth();
   const rollNumber = () => {
     if (!heldNumber) return;
     setNumbers((prev) =>
@@ -29,6 +29,13 @@ export const useGame = () => {
           : item
       )
     );
+    // update score in supabase if all numbers are held
+   const allHeld = numbers.every((item) =>
+      item.id === id && heldNumber === item.num ? true : item.hold
+    );  
+if (allHeld && user) {
+      updatePlayerScore(user.id, score);
+    } 
   };
 
   const resetGame = () => {

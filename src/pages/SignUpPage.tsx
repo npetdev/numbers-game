@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { Card, Input, Button, Typography, Space, message } from "antd";
+import { Card, Input, Button, Typography, Space } from "antd";
 import { useAuth } from "../hooks/useAuth";
-import { addPlayer } from "../services/players";
 
 const { Title, Text } = Typography;
 
-const SignUpPage: React.FC<{ onSwitchToLogin?: () => void }> = () => {
+interface SignUpPageProps {
+  onSignUp?: () => void;
+}
+
+const SignUpPage: React.FC<SignUpPageProps> = () => {
   const {
     user,
     playerName,
@@ -17,42 +19,14 @@ const SignUpPage: React.FC<{ onSwitchToLogin?: () => void }> = () => {
     signUp,
     logout,
   } = useAuth();
-
-  const [loading, setLoading] = useState(false);
-
-  const handleSignUp = async () => {
-    if (!playerName.trim())
-      return message.warning("Please enter your player name.");
-
-    try {
-      setLoading(true);
-      await signUp();
-
-      setTimeout(async () => {
-        if (user && user.id) {
-          try {
-            await addPlayer(user.id, playerName, email, 0);
-            message.success("Account created successfully!");
-          } catch (err) {
-            console.error(err);
-            message.error("Error saving player data.");
-          }
-        }
-      }, 500);
-    } catch (err) {
-      console.error(err);
-      message.error("Sign up failed.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
+ 
+ return (
     <div
       style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        minHeight: "100vh",
         background: "#f5f5f5",
       }}
     >
@@ -62,7 +36,7 @@ const SignUpPage: React.FC<{ onSwitchToLogin?: () => void }> = () => {
       >
         {user ? (
           <Space direction="vertical" size="middle" style={{ width: "100%" }}>
-            <Text>Welcome, {user.email || playerName || "Player"}!</Text>
+            <Text>Welcome, {playerName || "Player"}!</Text>
             <Button danger block onClick={logout}>
               Logout
             </Button>
@@ -84,16 +58,13 @@ const SignUpPage: React.FC<{ onSwitchToLogin?: () => void }> = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-
             <Button
               type="primary"
               block
-              loading={loading}
-              onClick={handleSignUp}
+              onClick={signUp}
             >
               Create Account
             </Button>
-
             <Text type="secondary">
               Please enter your player name, email, and password to register.
             </Text>

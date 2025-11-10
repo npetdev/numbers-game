@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
-import { addPlayer } from "../services/players";
+import { addPlayer, checkPlayerNameExists } from "../services/players";
 import type { User } from "@supabase/supabase-js";
 
 export const useAuth = () => {
@@ -42,16 +42,25 @@ export const useAuth = () => {
       setPlayerName(data.player_name);
     }
   };
+
   const signUp = async () => {
     if (!email || !password || !playerName)
       return alert("Enter player name, email and password.");
 
-    const { data, error } = await supabase.auth.signUp({ email, password });
-    if (error) return alert(error.message);
+    try {
+      // Check if the player name exists (now handled by the helper)
+      const nameExists = await checkPlayerNameExists(playerName);
+      if (nameExists) {
+        return alert(
+          "That player name is already taken. Please choose another one."
+        );
+      }
 
-    const newUser = data.user;
-    if (newUser) {
-      try {
+      const { data, error } = await supabase.auth.signUp({ email, password });
+      if (error) return alert(error.message);
+
+      const newUser = data.user;
+      if (newUser) {
         const { data: existingPlayer } = await supabase
           .from("players")
           .select("id")
@@ -63,11 +72,12 @@ export const useAuth = () => {
         }
 
         setUser(newUser);
-      } catch (error: any) {
-        alert("Error adding player: " + error.message);
       }
+    } catch (error: any) {
+      alert(error.message);
     }
   };
+
   const login = async () => {
     if (!email || !password) return alert("Enter email and password.");
 
@@ -75,6 +85,7 @@ export const useAuth = () => {
       email,
       password,
     });
+
     if (error) return alert(error.message);
 
     setUser(data.user ?? null);
@@ -83,6 +94,7 @@ export const useAuth = () => {
       await fetchPlayerName(data.user.id);
     }
   };
+
   const logout = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) return alert(error.message);
