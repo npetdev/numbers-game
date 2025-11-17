@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop";
 import MainLayout from "./layouts/MainLayout";
 import AboutGamePage from "./pages/AboutGamePage";
 import BestScoresPage from "./pages/BestScoresPage";
@@ -10,6 +11,7 @@ import SignUpPage from "./pages/SignUpPage";
 const App: React.FC = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route element={<MainLayout />}>
           <Route index element={<GamePage />} />

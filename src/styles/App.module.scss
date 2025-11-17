@@ -33,7 +33,12 @@ $transition: all 0.25s ease;
   gap: $gap;
 }
 
-@mixin button-style($bg, $hover-bg, $padding: 0.75rem 1.5rem, $scale-hover: 1.05) {
+@mixin button-style(
+  $bg,
+  $hover-bg,
+  $padding: 0.75rem 1.5rem,
+  $scale-hover: 1.05
+) {
   border: none;
   border-radius: $border-radius;
   padding: $padding;
@@ -63,7 +68,6 @@ $transition: all 0.25s ease;
   min-height: 100vh;
   background: linear-gradient(145deg, $color-bg-dark, $color-bg-light);
   color: $color-text;
-  padding: 1rem 2rem;
   box-sizing: border-box;
   text-align: center;
   font-family: $font-primary;
@@ -81,11 +85,31 @@ $transition: all 0.25s ease;
   max-width: 550px;
   line-height: clamp(1.4rem, 2.5vw, 1.8rem);
 }
+$text-color: #fff;
+$color-blue-start: #60a5fa;
+$color-blue-end: #3b82f6;
+
+.textBlock {
+  text-align: center;
+  max-width: 650px;
+
+  h2 {
+    font-size: clamp(1.4rem, 5vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    color: rgba($text-color, 0.85);
+    line-height: 1.5;
+   
+  }
+}
 
 .startcontainer {
   @include flex-center(row, 0.8rem);
   flex-wrap: wrap;
-  margin-bottom: 2rem;
 
   button {
     background: linear-gradient(135deg, $color-blue-start, $color-blue-end);
@@ -100,7 +124,11 @@ $transition: all 0.25s ease;
     &:hover,
     &:focus {
       transform: scale(1.1);
-      background: linear-gradient(135deg, $color-blue-hover-start, $color-blue-hover-end);
+      background: linear-gradient(
+        135deg,
+        $color-blue-hover-start,
+        $color-blue-hover-end
+      );
       outline: none;
     }
   }
@@ -110,7 +138,6 @@ $transition: all 0.25s ease;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: clamp(0.8rem, 2vw, 1.5rem);
-  margin: 1rem 0;
   justify-items: center;
   align-items: center;
 
@@ -145,7 +172,7 @@ $transition: all 0.25s ease;
 .controls {
   @include flex-center(row, 1.5rem);
   flex-wrap: wrap;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 
   .rollButton {
     @include button-style($color-green-button, $color-green-button-hover);
@@ -159,7 +186,7 @@ $transition: all 0.25s ease;
 .counter {
   @include responsive-font(1.2rem, 3vw, 1.8rem);
   font-weight: 700;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
 }
 
 .winnerPage {
@@ -178,41 +205,10 @@ $transition: all 0.25s ease;
   }
 }
 
-.footer {
-  @include flex-center(column);
-  background: linear-gradient(145deg, $color-bg-light, $color-bg-dark);
-  color: $color-text;
-  text-align: center;
-  padding: 1.5rem 1rem;
-  font-family: $font-primary;
-  font-size: clamp(0.9rem, 2vw, 1rem);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  transition: $transition;
-
-  p {
-    margin: 0.25rem 0;
-    opacity: 0.9;
-  }
-
-  a {
-    color: $color-blue-start;
-    text-decoration: none;
-    font-weight: 600;
-    transition: $transition;
-
-    &:hover,
-    &:focus {
-      color: $color-blue-hover-start;
-      text-decoration: underline;
-      outline: none;
-    }
-  }
-}
-
 $breakpoints: (
   md: 768px,
   sm: 480px,
-  xs: 375px
+  xs: 375px,
 );
 
 @each $label, $size in $breakpoints {

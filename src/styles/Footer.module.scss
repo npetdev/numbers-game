@@ -1,0 +1,76 @@
+
+$font-primary: "Segoe UI", Roboto, sans-serif;
+$color-text: #fff;
+$color-bg-dark: #0f172a;
+$color-bg-light: #1e293b;
+$color-blue-start: #60a5fa;
+$color-blue-hover-start: #93c5fd;
+$transition: all 0.25s ease;
+
+@mixin flex-center($direction: row, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+  align-items: center;
+  gap: $gap;
+}
+
+/* ==============================
+   Footer Styles
+   ============================== */
+.footer {
+  @include flex-center(column);
+  background: linear-gradient(145deg, $color-bg-light, $color-bg-dark);
+  color: $color-text;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-family: $font-primary;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  transition: $transition;
+
+  p {
+    margin: 0.25rem 0;
+    opacity: 0.9;
+  }
+
+  a {
+    color: $color-blue-start;
+    text-decoration: none;
+    font-weight: 600;
+    transition: $transition;
+
+    &:hover,
+    &:focus {
+      color: $color-blue-hover-start;
+      text-decoration: underline;
+      outline: none;
+    }
+  }
+}
+
+/* ==============================
+   Responsive Adjustments
+   ============================== */
+$breakpoints: (
+  sm: 480px,
+  xs: 375px
+);
+
+@each $label, $size in $breakpoints {
+  @media (max-width: $size) {
+    @if $label == sm {
+      .footer {
+        font-size: clamp(0.85rem, 3vw, 0.95rem);
+        padding: 1rem 0.5rem;
+      }
+    }
+
+    @if $label == xs {
+      .footer {
+        font-size: clamp(0.8rem, 3vw, 0.9rem);
+        padding: 0.8rem 0.5rem;
+      }
+    }
+  }
+}

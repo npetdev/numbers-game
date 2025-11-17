@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useGame } from "../hooks/useGame";
 import RootGamePage from "./RootGamePage";
@@ -23,7 +23,14 @@ const App: React.FC = () => {
   } = useGame();
 
   const [showInstructions, setShowInstructions] = useState(true);
+
   const handleStartGame = () => setShowInstructions(false);
+
+  // Always scroll to top when any "screen" changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [showInstructions, heldNumber, numbers]);
+
   return (
     <div className={styles.mainWrapper}>
       {showInstructions ? (
@@ -33,20 +40,31 @@ const App: React.FC = () => {
         </>
       ) : !numbers.every((item) => item.hold) ? (
         <>
-          <h2>Hello {playerName || "Player"}!</h2>
-          <ChoosenNumber heldNumber={heldNumber} handleSetNumber={setNumber} />
-          <RollCount score={score} />
-          <Items numbers={numbers} setHoldTrue={setHoldTrue} />
-          <ActionButtons
-            handleRollNumber={rollNumber}
-            handleResetCount={resetGame}
-          />
+          {!heldNumber ? (
+            <div className={styles.textBlock}>
+              <h2>Hello {playerName || "Player"}!</h2>
+              <p>Please choose a number to hold before rolling.</p>
+              <ChoosenNumber
+                heldNumber={heldNumber}
+                handleSetNumber={setNumber}
+              />
+            </div>
+          ) : (
+            <>
+              <div className={styles.textBlock}>
+                <h4>Roll and find {` ${heldNumber}`}</h4>
+              </div>
+              <RollCount score={score} />
+              <Items numbers={numbers} setHoldTrue={setHoldTrue} />
+              <ActionButtons
+                handleRollNumber={rollNumber}
+                handleResetCount={resetGame}
+              />
+            </>
+          )}
         </>
       ) : (
-        <WinnerPage
-        score={score}
-        resetGame={resetGame}
-        />
+        <WinnerPage score={score} resetGame={resetGame} />
       )}
     </div>
   );
